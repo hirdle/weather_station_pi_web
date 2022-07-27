@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 import requests
 
-# import Adafruit_DHT
-# DHT_SENSOR = Adafruit_DHT.DHT11
-# DHT_PIN = 4
+import Adafruit_DHT
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 4
 
 # import Adafruit_BMP.BMP085 as BMP085
 # bmp180Sensor = BMP085.BMP085()
@@ -30,7 +30,7 @@ def get_now_data():
     # presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
     # altBMP =  round(bmp180Sensor.read_altitude(),1)
 
-    # humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
 
 
     if humidity is not None:
