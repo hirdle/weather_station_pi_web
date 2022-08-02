@@ -205,7 +205,7 @@ def send_now_data(id):
         Давление - {data.pressure} мм ртуртного столба
         Высота над уровнем моря: {data.alt} м.
     """
-    
+    print(id, weather_text)
     bot.send_message(id, weather_text)
 
 def return_menu():
