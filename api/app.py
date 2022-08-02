@@ -191,7 +191,7 @@ def forecast_chart(days):
 def send_now_data(id):
 
     data = requests.get("http://127.0.0.1:5000/now").response
-    print(data)
+    print(requests.get("http://127.0.0.1:5000/now"))
 
     
     weather_text = f"""
