@@ -25,19 +25,21 @@ API_key_weather = "3ba9c0e9246cf9ee76413878ea521077"
 api_weather_data = {'q': city_en, 'units': 'metric', 'APPID': API_key_weather, 'lang': 'ru'}
 
 def get_now_data():
-    weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
+    # weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
 
-    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room = 0, 0, 0, 0, 0, 0
+    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0
 
-    tempBMP = round(bmp180Sensor.read_temperature(), 1)
+    # tempBMP = round(bmp180Sensor.read_temperature(), 1)
     presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
     altBMP =  round(bmp180Sensor.read_altitude(),1)
 
     humidity_room, temperature_room = Adafruit_DHT.read(DHT_SENSOR_ROOM, DHT_PIN_ROOM)
     time.sleep(0.25)
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
-    print(humidity_room, humidity_street)
-    if humidity_room is not None or humidity_street is not None:
+
+    print(presBMP)
+
+    if humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None:
         return {'city': city_ru, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempReal': tempBMP - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
     else:
         return {}
