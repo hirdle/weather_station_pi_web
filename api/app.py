@@ -55,6 +55,7 @@ api_weather_data = {'q': city_en, 'units': 'metric', 'APPID': API_key_weather, '
 import telebot
 from telebot import types
 from multiprocessing.context import Process
+import threading
 
 TOKEN = '5194527013:AAGKZcXHcub8E4UJM0U_HG9CxSUPDAeGmXU'
 bot = telebot.TeleBot(TOKEN)
@@ -256,7 +257,7 @@ class FlaskStart():
             app.run(debug=True)
  
     def start_process():
-        p1 = Process(target=FlaskStart.try_start, args=())
+        p1 = threading.Thread(target=FlaskStart.try_start, args=())
         p1.start()
  
 
