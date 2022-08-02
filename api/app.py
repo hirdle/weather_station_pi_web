@@ -247,9 +247,28 @@ def handle_text(message):
         start_function(message)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+#     app.run(debug=True)
 
-    app.run(debug=True)
+class FlaskStart():
+    def try_start():
+        while True:
+            app.run(debug=False)
+ 
+    def start_process():
+        p1 = Process(target=FlaskStart.try_start, args=())
+        p1.start()
+ 
+
+# bot.polling(none_stop=True)
+
+ 
+if __name__ == '__main__':
+    FlaskStart.start_process()
+    try:
+        bot.polling(none_stop=True)
+    except:
+        pass
 
 CS.clear_interrupt()
 del(CS)
