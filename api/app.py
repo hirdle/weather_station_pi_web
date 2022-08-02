@@ -1,7 +1,5 @@
+from multiprocessing import Process
 import threading
-from warnings import catch_warnings
-
-from numpy import NaN
 
 # COLOR SENSOR
 
@@ -264,7 +262,7 @@ class FlaskProcess():
         # app.run(host='0.0.0.0', port=5000)
  
     def start_process():
-        p1 = threading.Thread(target=FlaskProcess.run_app, args=())
+        p1 = Process(target=FlaskProcess.run_app, args=())
         p1.start()
  
  
