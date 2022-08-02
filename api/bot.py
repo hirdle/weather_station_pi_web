@@ -57,13 +57,13 @@ def send_now_data(id):
         weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
 
         weather_text = f"""
-        Информация о погоде в г. {city_ru}:
-        Температура в доме - {weather_data["main"]["temp"] + 3}°C
-        Температура на улице - {weather_data["main"]["temp"]}°C
-        Ощущяемая температура на улице - {weather_data["main"]["feels_like"]}°C
-        Влажность в доме - {weather_data["main"]["humidity"] + 4}%
-        Влажность на улице - {weather_data["main"]["humidity"]}%
-        Давление - {weather_data["main"]["pressure"]} мм ртуртного столба
+Информация о погоде в г. {city_ru}:
+Температура в доме - {weather_data["main"]["temp"] + 3}°C
+Температура на улице - {weather_data["main"]["temp"]}°C
+Ощущяемая температура на улице - {weather_data["main"]["feels_like"]}°C
+Влажность в доме - {weather_data["main"]["humidity"] + 4}%
+Влажность на улице - {weather_data["main"]["humidity"]}%
+Давление - {weather_data["main"]["pressure"]} мм ртуртного столба
         """
         bot.send_message(id, weather_text)
     
