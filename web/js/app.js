@@ -22,6 +22,7 @@ let lineChart = undefined
 
 const addNowData = () => {
     getDataAPI(`${urlPattern}/now`, (data) => {
+        console.log(data)
         if (data != {}) {
             document.querySelector("#temp").innerHTML = `${data.tempStreet}°C | ${data.tempRoom}°C`
             document.querySelector("#realTemp").innerHTML = data.tempStreetReal
