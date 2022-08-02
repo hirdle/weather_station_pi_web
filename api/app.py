@@ -7,23 +7,19 @@ from numpy import NaN
 from TCS34725 import ColourSensor
 import time, sys, smbus
 
-CS = None
-
-def startLightSensor():
     
-    address = 0x29
+address = 0x29
 
-    CS = ColourSensor(address)
-    CS.set_a_time(atime=24) # set ATIME to 24ms, max count 10240
-    CS.set_wait_time(wtime=43.2,wlong=0)               # set WTIME to 43.2ms
-    CS.set_gain(4)                                     # set gain to 4x
+CS = ColourSensor(address)
+CS.set_a_time(atime=24) # set ATIME to 24ms, max count 10240
+CS.set_wait_time(wtime=43.2,wlong=0)               # set WTIME to 43.2ms
+CS.set_gain(4)                                     # set gain to 4x
 
-    # set interrupt and persistance levels
-    CS.set_interrupt_levels(lowTL = 56, highTL = 8000, persLevel = 3)
+# set interrupt and persistance levels
+CS.set_interrupt_levels(lowTL = 56, highTL = 8000, persLevel = 3)
 
-    CS.set_enables(pon=1, aen=1, wen=1, aien=0)        # turn on PON, AEN and WEN
+CS.set_enables(pon=1, aen=1, wen=1, aien=0)        # turn on PON, AEN and WEN
 
-startLightSensor()
 
 # FLASK
 
@@ -268,7 +264,18 @@ class FlaskProcess():
  
  
 if __name__ == '__main__':
-    startLightSensor()
+    address = 0x29
+
+    CS = ColourSensor(address)
+    CS.set_a_time(atime=24) # set ATIME to 24ms, max count 10240
+    CS.set_wait_time(wtime=43.2,wlong=0)               # set WTIME to 43.2ms
+    CS.set_gain(4)                                     # set gain to 4x
+
+    # set interrupt and persistance levels
+    CS.set_interrupt_levels(lowTL = 56, highTL = 8000, persLevel = 3)
+
+    CS.set_enables(pon=1, aen=1, wen=1, aien=0)        # turn on PON, AEN and WEN
+
     FlaskProcess.start_process()
     try:
         bot.polling(none_stop=True)
