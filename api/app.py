@@ -40,7 +40,7 @@ def get_now_data():
     print(humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None)
 
     if temperature_room is not None and temperature_street is not None and humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None:
-        return {'city': city_ru, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
+        return {'city': city_ru, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempStreetReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
     else:
         return {}
 
