@@ -3,13 +3,13 @@ const urlPattern = "http://127.0.0.1:5000"
 const getDataAPI = (url, callback) => {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url);
-    // xhr.responseType = 'json';
+    xhr.responseType = 'json';
     xhr.send();
     
     xhr.onload = function() {
         let responseObj = xhr.response;
-        callback(JSON.parse(responseObj))
-        // callback(responseObj)
+        // callback(JSON.parse(responseObj))
+        callback(responseObj)
     };
 }
 
@@ -23,6 +23,8 @@ let lineChart = undefined
 
 const addNowData = () => {
     getDataAPI(`${urlPattern}/now`, (data) => {
+        console.log(typeof data)
+        console.log(Object.keys(data).length)
         if (Object.keys(data).length == 0) {
             document.querySelector("#temp").innerHTML = `${data.tempStreet}°C | ${data.tempRoom}°C`
             document.querySelector("#realTemp").innerHTML = data.tempStreetReal
