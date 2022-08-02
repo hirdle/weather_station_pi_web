@@ -38,7 +38,7 @@ def get_now_data():
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
     print(humidity_room, humidity_street)
     if humidity_room is not None or humidity_street is not None:
-        return {'city': city_ru, 'temp': tempBMP, 'tempReal': tempBMP - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
+        return {'city': city_ru, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempReal': tempBMP - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
     else:
         return (city_ru, tempBMP, weather_data['main']['humidity'], presBMP, altBMP, tempBMP - 5)
 
