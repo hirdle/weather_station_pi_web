@@ -27,7 +27,7 @@ api_weather_data = {'q': city_en, 'units': 'metric', 'APPID': API_key_weather, '
 def get_now_data():
     # weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
 
-    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0
+    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0, 0, 0
 
     # tempBMP = round(bmp180Sensor.read_temperature(), 1)
     presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
