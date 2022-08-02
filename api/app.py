@@ -50,7 +50,9 @@ def get_now_data():
     time.sleep(0.25)
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
 
-    lightColor = CS.read_CRGB()[0] / 6000 * 100
+    lightColor = CS.read_CRGB()[0] / 3600 * 100
+
+    if lightColor > 100: lightColor = 100
 
     if temperature_room is not None and temperature_street is not None and humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None:
         return {'city': city_ru, 'lightColor': lightColor, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempStreetReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
