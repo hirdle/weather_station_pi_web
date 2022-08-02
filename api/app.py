@@ -1,6 +1,6 @@
 import threading
-import time
 
+from numpy import NaN
 
 # COLOR SENSOR
 
@@ -9,6 +9,7 @@ import time, sys, smbus
 
 address = 0x29
 
+CS = None
 CS = ColourSensor(address)
 CS.set_a_time(atime=24) # set ATIME to 24ms, max count 10240
 CS.set_wait_time(wtime=43.2,wlong=0)               # set WTIME to 43.2ms
@@ -74,7 +75,8 @@ def get_now_data():
     time.sleep(0.25)
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
 
-    lightColor = round(CS.read_CRGB()[0] / 3600 * 100)
+    print(CS)
+    # lightColor = round(CS.read_CRGB()[0] / 3600 * 100)
 
     if lightColor > 100: lightColor = 100
 
