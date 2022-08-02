@@ -47,9 +47,10 @@ def get_forecast_data_str(days):
 
 
 def send_now_data(id):
-    data = {}
 
     data = requests.get("http://127.0.0.1:5000/now").json()
+
+    print(data)
 
     
     weather_text = f"""
