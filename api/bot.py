@@ -71,14 +71,14 @@ def send_now_data(id):
         
         weather_text = f"""
         Информация о погоде в г. {city_ru}:
-        Температура в доме - {data.tempRoom}°C
-        Температура на улице - {data.tempSteet}°C
-        Ощущяемая температура на улице - {data.tempSteetReal}°C
-        Влажность в доме - {data.humidity_room}%
-        Влажность на улице - {data.humidity_street}%
-        Интенсивность света на улице - {data.lightColor}%
-        Давление - {data.pressure} мм ртуртного столба
-        Высота над уровнем моря: {data.alt} м.
+        Температура в доме - {data["tempRoom"]}°C
+        Температура на улице - {data["tempSteet"]}°C
+        Ощущяемая температура на улице - {data["tempSteetReal"]}°C
+        Влажность в доме - {data["humidity_room"]}%
+        Влажность на улице - {data["humidity_street"]}%
+        Интенсивность света на улице - {data["lightColor"]}%
+        Давление - {data["pressure"]} мм ртуртного столба
+        Высота над уровнем моря: {data["alt"]} м.
         """
         bot.send_message(id, weather_text)
 
