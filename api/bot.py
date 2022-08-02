@@ -47,24 +47,38 @@ def get_forecast_data_str(days):
 
 
 def send_now_data(id):
-
     data = requests.get("http://127.0.0.1:5000/now").json()
 
-    print(data)
 
+    if data == {}:
+
+        weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
+
+        weather_text = f"""
+            Информация о погоде в г. {city_ru}:
+            Температура в доме - {weather_data.main.temp + 3}°C
+            Температура на улице - {weather_data.main.temp}°C
+            Ощущяемая температура на улице - {data.main.feels_like}°C
+            Влажность в доме - {weather_data.main.humidity + 4}%
+            Влажность на улице - {weather_data.main.humidity}%
+            Давление - {weather_data.main.pressure} мм ртуртного столба
+        """
+        bot.send_message(id, weather_text)
     
-    weather_text = f"""
-        Информация о погоде в г. {city_ru}:
-        Температура в доме - {data.tempRoom}°C
-        Температура на улице - {data.tempSteet}°C
-        Ощущяемая температура на улице - {data.tempSteetReal}°C
-        Влажность в доме - {data.humidity_room}%
-        Влажность на улице - {data.humidity_street}%
-        Интенсивность света на улице - {data.lightColor}%
-        Давление - {data.pressure} мм ртуртного столба
-        Высота над уровнем моря: {data.alt} м.
-    """
-    bot.send_message(id, weather_text)
+    else:
+        
+        weather_text = f"""
+            Информация о погоде в г. {city_ru}:
+            Температура в доме - {data.tempRoom}°C
+            Температура на улице - {data.tempSteet}°C
+            Ощущяемая температура на улице - {data.tempSteetReal}°C
+            Влажность в доме - {data.humidity_room}%
+            Влажность на улице - {data.humidity_street}%
+            Интенсивность света на улице - {data.lightColor}%
+            Давление - {data.pressure} мм ртуртного столба
+            Высота над уровнем моря: {data.alt} м.
+        """
+        bot.send_message(id, weather_text)
 
 def return_menu():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
