@@ -8,7 +8,7 @@ const getDataAPI = (url, callback) => {
     
     xhr.onload = function() {
         let responseObj = xhr.response;
-        callback(responseObj)
+        callback(JSON.parse(responseObj))
     };
 }
 
@@ -22,7 +22,7 @@ let lineChart = undefined
 
 const addNowData = () => {
     getDataAPI(`${urlPattern}/now`, (data) => {
-        if (isEmpty(data) == false) {
+        if (Object.keys(data).length == 0) {
             document.querySelector("#temp").innerHTML = `${data.tempStreet}°C | ${data.tempRoom}°C`
             document.querySelector("#realTemp").innerHTML = data.tempStreetReal
             document.querySelector("#humidity").innerHTML = `${data.humidity_room}% | ${data.humidity_street}%`
