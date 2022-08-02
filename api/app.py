@@ -1,8 +1,21 @@
 from flask import Flask
-from flask import Response
 from flask import jsonify
-import json
 import time
+
+from TCS34725 import ColourSensor
+import time, sys, smbus
+
+address = 0x29
+
+CS = ColourSensor(address)
+CS.set_a_time(atime=24) # set ATIME to 24ms, max count 10240
+CS.set_wait_time(wtime=43.2,wlong=0)               # set WTIME to 43.2ms
+CS.set_gain(4)                                     # set gain to 4x
+
+# set interrupt and persistance levels
+CS.set_interrupt_levels(lowTL = 56, highTL = 8000, persLevel = 3)
+
+CS.set_enables(pon=1, aen=1, wen=1, aien=0)        # turn on PON, AEN and WEN
 
 app = Flask(__name__)
 
@@ -27,7 +40,7 @@ api_weather_data = {'q': city_en, 'units': 'metric', 'APPID': API_key_weather, '
 def get_now_data():
     # weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
 
-    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0, 0, 0
+    lightColor, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0, 0, 0
 
     # tempBMP = round(bmp180Sensor.read_temperature(), 1)
     presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
@@ -37,10 +50,10 @@ def get_now_data():
     time.sleep(0.25)
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
 
-    print(humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None)
+    lightColor = CS.read_CRGB()[0] / 6000 * 100
 
     if temperature_room is not None and temperature_street is not None and humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None:
-        return {'city': city_ru, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempStreetReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
+        return {'city': city_ru, 'lightColor': lightColor, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempStreetReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
     else:
         return {}
 
@@ -121,3 +134,6 @@ def forecast_chart(days):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+CS.clear_interrupt()
+del(CS)
