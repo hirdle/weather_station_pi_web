@@ -3,7 +3,7 @@ const urlPattern = "http://127.0.0.1:5000"
 const getDataAPI = (url, callback) => {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url);
-    xhr.responseType = 'json';
+    // xhr.responseType = 'json';
     xhr.send();
     
     xhr.onload = function() {
