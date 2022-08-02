@@ -72,8 +72,8 @@ def send_now_data(id):
         weather_text = f"""
         Информация о погоде в г. {city_ru}:
         Температура в доме - {data["tempRoom"]}°C
-        Температура на улице - {data["tempSteet"]}°C
-        Ощущяемая температура на улице - {data["tempSteetReal"]}°C
+        Температура на улице - {data["tempStreet"]}°C
+        Ощущяемая температура на улице - {data["tempStreetReal"]}°C
         Влажность в доме - {data["humidity_room"]}%
         Влажность на улице - {data["humidity_street"]}%
         Интенсивность света на улице - {data["lightColor"]}%
