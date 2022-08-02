@@ -2,17 +2,20 @@ from flask import Flask
 from flask import Response
 from flask import jsonify
 import json
+import time
 
 app = Flask(__name__)
 
 import requests
 
 import Adafruit_DHT
-DHT_SENSOR = Adafruit_DHT.DHT11
-DHT_PIN = 4
+DHT_SENSOR_ROOM = Adafruit_DHT.DHT11
+DHT_SENSOR_STREET = Adafruit_DHT.DHT11
+DHT_PIN_ROOM = 4
+DHT_PIN_STREET = 17
 
-# import Adafruit_BMP.BMP085 as BMP085
-# bmp180Sensor = BMP085.BMP085()
+import Adafruit_BMP.BMP085 as BMP085
+bmp180Sensor = BMP085.BMP085()
 
 
 city_ru = 'Пенза'
@@ -24,17 +27,18 @@ api_weather_data = {'q': city_en, 'units': 'metric', 'APPID': API_key_weather, '
 def get_now_data():
     weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
 
-    tempBMP, presBMP, altBMP, humidity = 0, 0, 0, 0
+    tempBMP, presBMP, altBMP, humidity_room, humidity_street, humidity_room = 0, 0, 0, 0, 0, 0
 
-    # tempBMP = round(bmp180Sensor.read_temperature(), 1)
-    # presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
-    # altBMP =  round(bmp180Sensor.read_altitude(),1)
+    tempBMP = round(bmp180Sensor.read_temperature(), 1)
+    presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
+    altBMP =  round(bmp180Sensor.read_altitude(),1)
 
-    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
-
-
-    if humidity is not None:
-        return {'city': city_ru, 'temp': tempBMP, 'tempReal': tempBMP - 5, 'humidity': humidity, 'pressure': presBMP, 'alt': altBMP}
+    humidity_room, temperature_room = Adafruit_DHT.read(DHT_SENSOR_ROOM, DHT_PIN_ROOM)
+    time.sleep(0.25)
+    humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
+    print(humidity_room, humidity_street)
+    if humidity_room is not None or humidity_street is not None:
+        return {'city': city_ru, 'temp': tempBMP, 'tempReal': tempBMP - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
     else:
         return (city_ru, tempBMP, weather_data['main']['humidity'], presBMP, altBMP, tempBMP - 5)
 

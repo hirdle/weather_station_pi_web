@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        body {
+            background: #ccc;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Метеостанция</title>
 </head>
@@ -70,12 +75,14 @@
                 <option value="5">На 5 дней</option>
             </select>    
         </div>
+        
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-5" id="forecastInfo">
+        </div>
 
         
         <canvas id="tempChart"></canvas>
 
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-5" id="forecastInfo">
-        </div>
+        
 
     </div>
 

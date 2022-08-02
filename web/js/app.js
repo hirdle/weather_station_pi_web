@@ -20,18 +20,25 @@ let selectDaysForecast = 1
 
 let lineChart = undefined
 
+const addNowData = () => {
+    getDataAPI(`${urlPattern}/now`, (data) => {
+        if (data.temp != undefined) {
+            document.querySelector("#temp").innerHTML = data.temp
+            document.querySelector("#realTemp").innerHTML = data.tempReal
+            document.querySelector("#humidity").innerHTML = data.humidity_room  + "   " +  data.humidity_street
+            document.querySelector("#alt").innerHTML = data.alt
+            document.querySelector("#pressure").innerHTML = data.pressure
+        }
+        
+    })
+}
+
 const getAddData = () => {
 
     if (lineChart != undefined)
         lineChart.destroy()
 
-    getDataAPI(`${urlPattern}/now`, (data) => {
-        document.querySelector("#temp").innerHTML = data.temp
-        document.querySelector("#realTemp").innerHTML = data.tempReal
-        document.querySelector("#humidity").innerHTML = data.humidity
-        document.querySelector("#alt").innerHTML = data.alt
-        document.querySelector("#pressure").innerHTML = data.pressure
-    })
+    
 
     getDataAPI(`${urlPattern}/forecast/${selectDaysForecast}`, (data) => {
         forecastInfo.innerHTML = data.map(item => 
@@ -97,3 +104,8 @@ setInterval(
     }, 20000
 )
 
+setInterval(
+    () => {
+        addNowData()
+    }, 1000
+)
