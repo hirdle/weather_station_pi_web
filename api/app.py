@@ -23,6 +23,7 @@ def startLightSensor():
 
     CS.set_enables(pon=1, aen=1, wen=1, aien=0)        # turn on PON, AEN and WEN
 
+startLightSensor()
 
 # FLASK
 
