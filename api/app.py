@@ -189,31 +189,11 @@ def forecast_chart(days):
     return jsonify(get_forecast_data_chart(days))
 
 def send_now_data(id):
-    print("fgdd")
-    data = {}
 
-    # weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
+    data = requests.get("http://127.0.0.1:5000/now").response
+    print(data)
 
-    lightColor, presBMP, altBMP, humidity_room, humidity_street, humidity_room, temperature_room, temperature_street = 0, 0, 0, 0, 0, 0, 0, 0
-
-    # tempBMP = round(bmp180Sensor.read_temperature(), 1)
-    presBMP = round(bmp180Sensor.read_pressure()/100*0.7501, 1)
-    altBMP =  round(bmp180Sensor.read_altitude(),1)
-
-    humidity_room, temperature_room = Adafruit_DHT.read(DHT_SENSOR_ROOM, DHT_PIN_ROOM)
-    time.sleep(0.25)
-    humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
-
-    try:
-        lightColor = round(CS.read_CRGB()[0] / 3600 * 100)
-    except:
-        pass
-
-    if lightColor > 100: lightColor = 100
-
-    if temperature_room is not None and temperature_street is not None and humidity_room is not None and humidity_street is not None and presBMP is not None and altBMP is not None:
-        data = {'city': city_ru, 'lightColor': lightColor, 'tempStreet': temperature_street, 'tempRoom': temperature_room, 'tempStreetReal': temperature_street - 5, 'humidity_room': humidity_room, 'humidity_street': humidity_street, 'pressure': presBMP, 'alt': altBMP}
-
+    
     weather_text = f"""
         Информация о погоде в г. {city_ru}:
         Температура в доме - {data.tempRoom}°C
@@ -225,7 +205,6 @@ def send_now_data(id):
         Давление - {data.pressure} мм ртуртного столба
         Высота над уровнем моря: {data.alt} м.
     """
-    print(id, weather_text)
     bot.send_message(id, weather_text)
 
 def return_menu():
