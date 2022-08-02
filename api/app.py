@@ -1,3 +1,4 @@
+import threading
 import time
 
 
@@ -252,11 +253,11 @@ def handle_text(message):
 
 class FlaskProcess():
     def run_app():
-        app.run()
+        app.run(debug=True, use_reloader=False)
         # app.run(host='0.0.0.0', port=5000)
  
     def start_process():
-        p1 = Process(target=FlaskProcess.run_app, args=())
+        p1 = threading.Thread(target=FlaskProcess.run_app, args=())
         p1.start()
  
  
