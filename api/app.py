@@ -253,7 +253,7 @@ def handle_text(message):
 class FlaskStart():
     def try_start():
         while True:
-            app.run(debug=False)
+            app.run(debug=True)
  
     def start_process():
         p1 = Process(target=FlaskStart.try_start, args=())
