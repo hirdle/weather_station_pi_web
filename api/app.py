@@ -50,7 +50,7 @@ def get_now_data():
     time.sleep(0.25)
     humidity_street, temperature_street = Adafruit_DHT.read(DHT_SENSOR_STREET, DHT_PIN_STREET)
 
-    lightColor = CS.read_CRGB()[0] / 3600 * 100
+    lightColor = round(CS.read_CRGB()[0] / 3600 * 100)
 
     if lightColor > 100: lightColor = 100
 
