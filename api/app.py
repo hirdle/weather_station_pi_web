@@ -189,6 +189,7 @@ def forecast_chart(days):
     return jsonify(get_forecast_data_chart(days))
 
 def send_now_data(id):
+    print("fgdd")
     data = {}
 
     # weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather", params=api_weather_data).json()
